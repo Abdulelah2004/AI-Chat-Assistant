@@ -98,7 +98,7 @@ Example: "Thank you for reaching out! Please let us know if you need further ass
 
 `;
 
-const API_KEY = "AIzaSyCsR6CdrVfFI97Ynmd4G6ea99TsD-KfKlw";
+const API_KEY = "change it into yours buddy";
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-pro",
@@ -205,3 +205,4 @@ document
   .addEventListener("click", () => {
     document.querySelector("body").classList.remove("chat-open");
   });
+
