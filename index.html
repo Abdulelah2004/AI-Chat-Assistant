@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Assistant</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        dark: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+       
+</head>
+<body>
+
+    <section class="chat-window">
+        <button class="close">✕ Close Chat</button>
+        <div class="chat">
+            <div class="model">
+                <p>Hi, how can I help you?</p>
+            </div>
+            
+        </div>
+        <div class="input-area">
+            <input placeholder="Ask me anything..." type="text" id="message-input">
+            <button id="send-button">
+                    <img src="images/send-icon.png" alt="" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <div class="chat-button">
+            <img src="./images/chat-icon.png" alt="" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round>
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </div>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+    
+    <script type="module" src="main.js"></script>
+    
+    <script>
+        // Fix for the send functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get elements
+            const messageInput = document.getElementById('message-input');
+            const sendButton = document.getElementById('send-button');
+            const chatButton = document.querySelector('.chat-button');
+            const closeButton = document.querySelector('.close');
+            
+            // Add event listener for send button
+            sendButton.addEventListener('click', function() {
+                // Trigger the sendMessage function from your main.js
+                if (typeof sendMessage === 'function') {
+                    sendMessage();
+                }
+            });
+            
+            // Add event listener for Enter key
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    if (typeof sendMessage === 'function') {
+                        sendMessage();
+                    }
+                }
+            });
+            
+            // Toggle chat window
+            chatButton.addEventListener('click', function() {
+                document.body.classList.add('chat-open');
+            });
+            
+            closeButton.addEventListener('click', function() {
+                document.body.classList.remove('chat-open');
+            });
+        });
+    </script>
+</body>
+</html>
